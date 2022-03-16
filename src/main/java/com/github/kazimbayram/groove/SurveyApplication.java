@@ -1,4 +1,4 @@
-package com.github.kazimbayram.survey;
+package com.github.kazimbayram.groove;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
