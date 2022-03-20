@@ -6,11 +6,11 @@ import com.github.kazimbayram.groove.model.SurveyTopicListModel;
 import com.github.kazimbayram.groove.model.SurveyTopicModel;
 import com.github.kazimbayram.groove.service.SurveyAnswerService;
 import com.github.kazimbayram.groove.service.TopicListingService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -44,13 +44,13 @@ public class TopicListingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void postTopic(@RequestBody() SurveyQuestionModel model) {
+    public void postTopic(@RequestBody() @Valid SurveyQuestionModel model) {
         topicListingService.createNewTopic(model);
     }
 
     @PutMapping("{topicId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void putTopic(@PathVariable("topicId") int topicId, @RequestBody() SurveyQuestionModel model) {
+    public void putTopic(@PathVariable("topicId") int topicId, @RequestBody() @Valid SurveyQuestionModel model) {
         topicListingService.updateTopicById(topicId, model);
     }
 

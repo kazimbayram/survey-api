@@ -2,13 +2,14 @@ package com.github.kazimbayram.groove.controller;
 
 import com.github.kazimbayram.groove.model.SurveyAnswerModel;
 import com.github.kazimbayram.groove.model.SurveyQuestionModel;
-import com.github.kazimbayram.groove.model.SurveyTopicModel;
 import com.github.kazimbayram.groove.service.SurveyAnswerService;
 import com.github.kazimbayram.groove.service.TopicListingService;
 import com.github.kazimbayram.groove.utility.Mapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController()
 @RequestMapping("survey/{id}")
@@ -38,7 +39,7 @@ public class SurveyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void submitAnswer(@PathVariable("id") int id, @RequestBody() SurveyAnswerModel answerModel) {
+    public void submitAnswer(@PathVariable("id") int id, @Valid @RequestBody() SurveyAnswerModel answerModel) {
         surveyAnswerService.saveAnswerWithTopicId(id, answerModel);
     }
 }

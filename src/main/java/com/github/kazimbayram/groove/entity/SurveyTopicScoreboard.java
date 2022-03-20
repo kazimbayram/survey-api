@@ -33,4 +33,23 @@ public class SurveyTopicScoreboard extends BaseEntity {
     @Column(name = "total_promoters", nullable = false)
     private int totalPromoters;
 
+
+    @Transient
+    public void incrementDetractors() {
+        this.totalSubmission++;
+        this.totalDetractors++;
+    }
+
+    @Transient
+    public void incrementPassives() {
+        this.totalSubmission++;
+        this.totalPassives++;
+    }
+
+    @Transient
+    public void incrementPromoters() {
+        this.totalSubmission++;
+        this.totalPromoters++;
+    }
+
 }
