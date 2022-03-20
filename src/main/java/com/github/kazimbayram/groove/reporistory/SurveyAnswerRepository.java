@@ -10,4 +10,6 @@ import java.util.List;
 public interface SurveyAnswerRepository extends JpaRepository<SurveyAnswer, Integer> {
 
     List<SurveyAnswer> findByTopicId(int topicId);
+
+    void deleteByTopicId(int topicId);
 }

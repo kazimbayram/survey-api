@@ -17,7 +17,7 @@ import javax.persistence.*;
 @AttributeOverride(name = "id", column = @Column(name = "scoreboard_id"))
 public class SurveyTopicScoreboard extends BaseEntity {
 
-    @JoinColumn(name = "topic_id", nullable = false)
+    @JoinColumn(name = "topic_id")
     @OneToOne(fetch = FetchType.LAZY)
     private SurveyTopic topic;
 

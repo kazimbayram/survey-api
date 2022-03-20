@@ -24,12 +24,10 @@ public class SurveyTopic extends BaseEntity {
     @Column(name = "score", nullable = false)
     private int score;
 
-    @JoinColumn(name = "topic_id", referencedColumnName = "topic_id")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "topic")
     private SurveyTopicScoreboard scoreboard;
 
-    @JoinColumn(name = "topic_id", referencedColumnName = "topic_id")
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "topic")
     private List<SurveyAnswer> answers;
 
 }

@@ -8,4 +8,6 @@ public class SurveyTopicListModel {
     public Integer id;
 
     public String topic;
+
+    public String score;
 }

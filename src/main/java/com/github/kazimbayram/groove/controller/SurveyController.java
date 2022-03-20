@@ -1,5 +1,6 @@
 package com.github.kazimbayram.groove.controller;
 
+import com.github.kazimbayram.groove.exceptions.TopicNotFoundException;
 import com.github.kazimbayram.groove.model.SurveyAnswerModel;
 import com.github.kazimbayram.groove.model.SurveyQuestionModel;
 import com.github.kazimbayram.groove.service.SurveyAnswerService;
@@ -34,7 +35,7 @@ public class SurveyController {
             return ResponseEntity.ok(result);
         }
 
-        return ResponseEntity.notFound().build();
+        throw new TopicNotFoundException(id);
     }
 
     @PostMapping
