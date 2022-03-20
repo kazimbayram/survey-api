@@ -17,17 +17,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class surveyTopicServiceImpl implements SurveyTopicService {
+public class SurveyTopicServiceImpl implements SurveyTopicService {
 
     private final SurveyTopicRepository surveyTopicRepository;
-    private SurveyTopicScoreboardRepository surveyTopicScoreboardRepository;
+    private final SurveyTopicScoreboardRepository surveyTopicScoreboardRepository;
     private final Mapper mapper;
     private final NpsOperationsService npsOperationsService;
 
-    public surveyTopicServiceImpl(SurveyTopicRepository surveyTopicRepository,
-                                   NpsOperationsService npsOperationsService,
-                                   SurveyTopicScoreboardRepository surveyTopicScoreboardRepository,
-                                   Mapper mapper) {
+    public SurveyTopicServiceImpl(
+            SurveyTopicRepository surveyTopicRepository,
+            NpsOperationsService npsOperationsService,
+            SurveyTopicScoreboardRepository surveyTopicScoreboardRepository,
+            Mapper mapper
+    ) {
         this.surveyTopicRepository = surveyTopicRepository;
         this.npsOperationsService = npsOperationsService;
         this.surveyTopicScoreboardRepository = surveyTopicScoreboardRepository;
@@ -72,20 +74,15 @@ public class surveyTopicServiceImpl implements SurveyTopicService {
     @Transactional
     public SurveyTopicModel updateTopicById(int topicId, SurveyTopicModel model) {
 
-        var entity = surveyTopicRepository.findById(topicId);
+        var entity = surveyTopicRepository.findById(topicId)
+                .orElseThrow(() -> new TopicNotFoundException(topicId));
 
-        if (entity.isEmpty()) {
-            throw new TopicNotFoundException(topicId);
-        }
+        entity.setTopic(model.getTopic());
+        entity.setQuestion(model.getQuestion());
 
-        var entityToUpdate = entity.get();
+        entity = surveyTopicRepository.save(entity);
 
-        entityToUpdate.setTopic(model.getTopic());
-        entityToUpdate.setQuestion(model.getQuestion());
-
-        entityToUpdate = surveyTopicRepository.save(entityToUpdate);
-
-        return mapper.map(entityToUpdate, SurveyTopicModel.class);
+        return mapper.map(entity, SurveyTopicModel.class);
     }
 
     @Override

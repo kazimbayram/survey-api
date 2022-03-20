@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SurveyTopicService {
+
     Optional<SurveyTopicModel> getTopicById(int id);
 
     List<SurveyTopicListModel> getAllTopics();
