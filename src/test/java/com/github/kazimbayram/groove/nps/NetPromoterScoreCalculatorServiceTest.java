@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class NetPromoterScoreCalculatorService {
+public class NetPromoterScoreCalculatorServiceTest {
 
     @Test
     void Given_SurveyAnswer_When_CalculationRequested_Then_ShouldReturnCalculatedScore() {
