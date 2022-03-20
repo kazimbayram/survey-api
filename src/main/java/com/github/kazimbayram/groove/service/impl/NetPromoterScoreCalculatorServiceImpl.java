@@ -5,8 +5,6 @@ import com.github.kazimbayram.groove.model.SurveyTopicScoreboardModel;
 import com.github.kazimbayram.groove.service.NetPromoterScoreCalculatorService;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 public class NetPromoterScoreCalculatorServiceImpl implements NetPromoterScoreCalculatorService {
 
@@ -28,6 +26,9 @@ public class NetPromoterScoreCalculatorServiceImpl implements NetPromoterScoreCa
 
     @Override
     public int calculateNpsScore(SurveyTopicScoreboardModel scoreboardModel) {
+        if (scoreboardModel.getTotalSubmission() == 0) {
+            return 0;
+        }
         return (scoreboardModel.getTotalPromoters() - scoreboardModel.getTotalDetractors()) * 100 / scoreboardModel.getTotalSubmission();
     }
 }

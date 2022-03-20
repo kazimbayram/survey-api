@@ -5,13 +5,14 @@ import lombok.Data;
 
 @Data
 public class SurveyTopicScoreboardModel {
-    private int topicId;
 
-    private int totalSubmission;
+    private Integer topicId;
 
-    private int totalDetractors;
+    private Integer totalSubmission;
 
-    private int totalPassives;
+    private Integer totalDetractors;
 
-    private int totalPromoters;
+    private Integer totalPassives;
+
+    private Integer totalPromoters;
 }

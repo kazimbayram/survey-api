@@ -16,11 +16,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "answers")
 @AttributeOverride(name = "id", column = @Column(name = "submit_id"))
-public class SurveyAnswerEntity extends BaseEntity {
+public class SurveyAnswer extends BaseEntity {
 
     @JoinColumn(name = "topic_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    private SurveyTopicEntity topic;
+    private SurveyTopic topic;
 
     @Column(name = "score")
     private int score;

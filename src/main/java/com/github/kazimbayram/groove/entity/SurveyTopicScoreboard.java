@@ -19,7 +19,7 @@ public class SurveyTopicScoreboard extends BaseEntity {
 
     @JoinColumn(name = "topic_id", nullable = false)
     @OneToOne(fetch = FetchType.LAZY)
-    private SurveyTopicEntity topic;
+    private SurveyTopic topic;
 
     @Column(name = "total_submission", nullable = false)
     private int totalSubmission;

@@ -3,7 +3,7 @@ package com.github.kazimbayram.groove.controller;
 import com.github.kazimbayram.groove.model.SurveyAnswerModel;
 import com.github.kazimbayram.groove.model.SurveyQuestionModel;
 import com.github.kazimbayram.groove.service.SurveyAnswerService;
-import com.github.kazimbayram.groove.service.TopicListingService;
+import com.github.kazimbayram.groove.service.SurveyTopicService;
 import com.github.kazimbayram.groove.utility.Mapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ import javax.validation.Valid;
 @RequestMapping("survey/{id}")
 public class SurveyController {
 
-    private final TopicListingService surveyListingService;
+    private final SurveyTopicService surveyListingService;
     private final SurveyAnswerService surveyAnswerService;
     private final Mapper mapper;
 
-    public SurveyController(TopicListingService surveyListingService, SurveyAnswerService surveyAnswerService, Mapper mapper) {
+    public SurveyController(SurveyTopicService surveyListingService, SurveyAnswerService surveyAnswerService, Mapper mapper) {
         this.surveyListingService = surveyListingService;
         this.surveyAnswerService = surveyAnswerService;
         this.mapper = mapper;

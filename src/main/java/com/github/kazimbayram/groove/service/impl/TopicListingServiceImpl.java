@@ -1,12 +1,14 @@
 package com.github.kazimbayram.groove.service.impl;
 
-import com.github.kazimbayram.groove.entity.SurveyTopicEntity;
+import com.github.kazimbayram.groove.entity.SurveyTopic;
 import com.github.kazimbayram.groove.exceptions.TopicNotFoundException;
 import com.github.kazimbayram.groove.model.SurveyQuestionModel;
 import com.github.kazimbayram.groove.model.SurveyTopicListModel;
 import com.github.kazimbayram.groove.model.SurveyTopicModel;
 import com.github.kazimbayram.groove.reporistory.SurveyTopicRepository;
-import com.github.kazimbayram.groove.service.TopicListingService;
+import com.github.kazimbayram.groove.reporistory.SurveyTopicScoreboardRepository;
+import com.github.kazimbayram.groove.service.NpsOperationsService;
+import com.github.kazimbayram.groove.service.SurveyTopicService;
 import com.github.kazimbayram.groove.utility.Mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +17,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TopicListingServiceImpl implements TopicListingService {
+public class surveyTopicServiceImpl implements SurveyTopicService {
 
     private final SurveyTopicRepository surveyTopicRepository;
+    private SurveyTopicScoreboardRepository surveyTopicScoreboardRepository;
     private final Mapper mapper;
+    private final NpsOperationsService npsOperationsService;
 
-    public TopicListingServiceImpl(SurveyTopicRepository surveyTopicRepository, Mapper mapper) {
+    public surveyTopicServiceImpl(SurveyTopicRepository surveyTopicRepository,
+                                   NpsOperationsService npsOperationsService,
+                                   SurveyTopicScoreboardRepository surveyTopicScoreboardRepository,
+                                   Mapper mapper) {
         this.surveyTopicRepository = surveyTopicRepository;
+        this.npsOperationsService = npsOperationsService;
+        this.surveyTopicScoreboardRepository = surveyTopicScoreboardRepository;
         this.mapper = mapper;
     }
 
@@ -48,19 +57,20 @@ public class TopicListingServiceImpl implements TopicListingService {
     @Transactional
     public SurveyQuestionModel createNewTopic(SurveyQuestionModel model) {
 
-        var entity = mapper.map(model, SurveyTopicEntity.class);
+        var entity = mapper.map(model, SurveyTopic.class);
         entity.setScore(0);
-
-        System.out.println("TEST");
 
         var savedEntity = this.surveyTopicRepository.save(entity);
 
-        return mapper.map(savedEntity, SurveyQuestionModel.class);
+        model = mapper.map(savedEntity, SurveyQuestionModel.class);
+        npsOperationsService.createNewScoreboard(model);
+
+        return model;
     }
 
     @Override
     @Transactional
-    public SurveyQuestionModel updateTopicById(int topicId, SurveyQuestionModel model) {
+    public SurveyTopicModel updateTopicById(int topicId, SurveyTopicModel model) {
 
         var entity = surveyTopicRepository.findById(topicId);
 
@@ -75,12 +85,13 @@ public class TopicListingServiceImpl implements TopicListingService {
 
         entityToUpdate = surveyTopicRepository.save(entityToUpdate);
 
-        return mapper.map(entityToUpdate, SurveyQuestionModel.class);
+        return mapper.map(entityToUpdate, SurveyTopicModel.class);
     }
 
     @Override
     @Transactional
     public void deleteTopicById(int topicId) {
+        surveyTopicScoreboardRepository.deleteByTopicId(topicId);
         surveyTopicRepository.deleteById(topicId);
     }
 }

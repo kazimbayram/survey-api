@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class SurveyTopicModel {
-    public int id;
+
+    public Integer id;
 
     public String question;
 

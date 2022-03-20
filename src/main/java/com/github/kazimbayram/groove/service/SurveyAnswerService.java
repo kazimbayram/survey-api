@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface SurveyAnswerService {
-    void saveAnswerWithTopicId(int id, SurveyAnswerModel answerModel);
+    SurveyAnswerModel saveAnswerWithTopicId(int id, SurveyAnswerModel answerModel);
 
     List<SurveyAnswerModel> getAnswersByTopicId(int topicId);
 }

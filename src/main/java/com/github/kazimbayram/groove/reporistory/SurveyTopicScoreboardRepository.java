@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface SurveyTopicScoreboardRepository extends JpaRepository<SurveyTopicScoreboard, Integer> {
 
     Optional<SurveyTopicScoreboard> findByTopicId(int topicId);
+
+    void deleteByTopicId(int topicId);
 }

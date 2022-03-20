@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class SurveyTopicListModel {
 
-    public int id;
+    public Integer id;
 
     public String topic;
 }

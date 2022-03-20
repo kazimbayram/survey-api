@@ -2,23 +2,19 @@ package com.github.kazimbayram.groove.model;
 
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 public class SurveyAnswerModel {
 
-    private int id;
+    private Integer id;
 
-    @Min(1)
-    @Max(10)
+    @Min(value = 1, message = "Score should be between 1 and 10")
+    @Max(value = 10, message = "Score should be between 1 and 10")
     private int score;
 
-    @NotNull
-    @NotEmpty
+
     private String feedback;
 
-    private int topicId;
+    private Integer topicId;
 }

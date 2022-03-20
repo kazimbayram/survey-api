@@ -5,7 +5,7 @@ import com.github.kazimbayram.groove.model.SurveyQuestionModel;
 import com.github.kazimbayram.groove.model.SurveyTopicListModel;
 import com.github.kazimbayram.groove.model.SurveyTopicModel;
 import com.github.kazimbayram.groove.service.SurveyAnswerService;
-import com.github.kazimbayram.groove.service.TopicListingService;
+import com.github.kazimbayram.groove.service.SurveyTopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,24 +15,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("topic")
-public class TopicListingController {
+public class SurveyTopicController {
 
-    private final TopicListingService topicListingService;
+    private final SurveyTopicService surveyTopicService;
     private final SurveyAnswerService surveyAnswerService;
 
-    public TopicListingController(TopicListingService topicListingService, SurveyAnswerService surveyAnswerService) {
-        this.topicListingService = topicListingService;
+    public SurveyTopicController(SurveyTopicService surveyTopicService, SurveyAnswerService surveyAnswerService) {
+        this.surveyTopicService = surveyTopicService;
         this.surveyAnswerService = surveyAnswerService;
     }
 
     @GetMapping
     public List<SurveyTopicListModel> getTopics() {
-        return topicListingService.getAllTopics();
+        return surveyTopicService.getAllTopics();
     }
 
     @GetMapping("{topicId}")
     public ResponseEntity<SurveyTopicModel> getTopic(@PathVariable("topicId") int topicId) {
-        var topic = topicListingService.getTopicById(topicId);
+        var topic = surveyTopicService.getTopicById(topicId);
 
         return ResponseEntity.of(topic);
     }
@@ -45,18 +45,18 @@ public class TopicListingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postTopic(@RequestBody() @Valid SurveyQuestionModel model) {
-        topicListingService.createNewTopic(model);
+        surveyTopicService.createNewTopic(model);
     }
 
     @PutMapping("{topicId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void putTopic(@PathVariable("topicId") int topicId, @RequestBody() @Valid SurveyQuestionModel model) {
-        topicListingService.updateTopicById(topicId, model);
+    public void putTopic(@PathVariable("topicId") int topicId, @RequestBody() @Valid SurveyTopicModel model) {
+        surveyTopicService.updateTopicById(topicId, model);
     }
 
     @DeleteMapping("{topicId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTopic(@PathVariable("topicId") int topicId) {
-        topicListingService.deleteTopicById(topicId);
+        surveyTopicService.deleteTopicById(topicId);
     }
 }

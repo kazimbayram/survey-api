@@ -8,8 +8,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class SurveyQuestionModel {
 
-    @Min(0)
-    private int id;
+    private Integer id;
 
     @NotNull
     private String topic;
