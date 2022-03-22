@@ -18,7 +18,10 @@ This is a Survey application powered by Spring Framework with JPA that provides 
 2. Clone this repo to your desktop and run `./mvnw install` to install all the dependencies.
 
 The project uses H2 as database. If you want to use another one, please add database driver dependencies to `pom.xml`.
+
 ## Environment Variables
+
+By default, the application uses in-memory h2 database. ıf you want to use another one, please set environment variables below.
 
 | Variable          | Description                                                       |
 |-------------------|-------------------------------------------------------------------|
